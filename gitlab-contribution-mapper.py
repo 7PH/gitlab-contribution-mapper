@@ -1,6 +1,8 @@
 import asyncio
 import os
 
+EMAILS = [b"benjamin.raymond@cern.ch"]
+DUMMY_FILE_PATH = b"CHANGELOG.md"
 REPO_FILE_PATH = "repos.txt"
 
 
@@ -12,7 +14,7 @@ def get_repos():
                 yield repo
 
 
-async def process_repo(repo_url: str):
+def process_repo(repo_url: str):
     # Clone the repository in repos/{repo}
     repo_name = repo_url.split("/")[-1]
     repo_path = os.path.join("repos", repo_name)
@@ -20,14 +22,17 @@ async def process_repo(repo_url: str):
     os.makedirs(repo_path, exist_ok=True)
     os.system(f"git clone {repo_url} {repo_path}")
 
-    # Execute `run-git-filter-repo.sh`
-    os.system(f"cd {repo_path} && bash ../run-git-filter-repo.sh")
+    # Run filter-repo.py from the cloned repository
+    os.system(f"cd {repo_path} && python ../../filter-repo.py")
+
+    return repo_name
 
 
 async def main():
+    # Process all the repos
     repos = get_repos()
     for repo in repos:
-        await process_repo(repo)
+        process_repo(repo)
 
 
 if __name__ == "__main__":
