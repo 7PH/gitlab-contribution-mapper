@@ -3,10 +3,13 @@ import subprocess
 
 import git_filter_repo as fr
 
-EMAILS = [b"benjamin.raymond@cern.ch"]
 DUMMY_FILE_PATH = b"CHANGELOG.md"
 FMODE = b"100755"
 
+EMAILS = os.environ.get("EMAILS", "").split(",")
+EMAILS = [email.strip().encode() for email in EMAILS if email.strip()]
+
+GITHUB_EMAIL = os.environ.get("GITHUB_EMAIL").encode()
 
 # Copy the dummy file within the repository
 os.system(f"cp ../../{DUMMY_FILE_PATH.decode()} ./")
@@ -28,6 +31,7 @@ def fixup_commits(commit: fr.Commit, _metadata):
         blob = fr.Blob(base_changelog + b"\n" + commit.message)
         filter.insert(blob)
         commit.file_changes = [fr.FileChange(b"M", DUMMY_FILE_PATH, blob.id, FMODE)]
+        commit.author_email = GITHUB_EMAIL
     else:
         # We do not want this commit
         commit.file_changes = []
