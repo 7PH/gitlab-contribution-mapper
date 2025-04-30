@@ -1,0 +1,11 @@
+[project]
+name = "gitlab-contribution-mapper"
+version = "0.1.0"
+authors = [
+    { name = "7PH", email = "b.raymond@protonmail.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "git-filter-repo==2.47.0",
+    "python-dotenv==1.1.0",
+]

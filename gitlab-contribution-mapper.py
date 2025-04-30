@@ -2,6 +2,9 @@ import asyncio
 import os
 import subprocess
 import sys
+from dotenv import load_dotenv
+
+load_dotenv(override=True)
 
 DUMMY_FILE_PATH = b"CHANGELOG.md"
 REPO_PATH = "repos"
