@@ -9,7 +9,8 @@ GITHUB_EMAIL="$4"
 
 rm -rf "$REPO_PATH"
 mkdir -p "$REPO_PATH"
+echo ${REPO_URL}
 git clone "$REPO_URL" "$REPO_PATH"
 
 cd "$REPO_PATH"
-GITHUB_EMAIL="$GITHUB_EMAIL" python ../../filter-repo.py
+GITHUB_EMAIL="$GITHUB_EMAIL" python3 ../../filter-repo.py

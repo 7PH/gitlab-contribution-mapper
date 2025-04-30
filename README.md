@@ -6,46 +6,42 @@ Note: The script barely works at the moment, more features will be added in the 
 
 ---
 
-## Setup
+## Setup & Usage
 
-1. Clone this project:
+### Option 1: Using uv (faster alternative)
 
 ```bash
+# 1. Clone this project:
 git clone https://github.com/7PH/gitlab-contribution-mapper
 cd gitlab-contribution-mapper
+
+# 2. Configure your environment:
+./scripts/env-generate.sh
+
+# 3. Run the tool:
+uv run python gitlab-contribution-mapper.py
+bash scripts/monorepo-push.sh
 ```
 
-2. Create a virtual environment (optional):
+### Option 2: Using venv (built-in Python virtual environment)
 
 ```bash
-python -m venv venv
-source venv/bin/activate
-```
+# 1. Clone this project:
+git clone https://github.com/7PH/gitlab-contribution-mapper
+cd gitlab-contribution-mapper
 
-3. Install dependencies:
+# 2. Create a virtual environment (optional):
+python -m venv .venv
+source .venv/bin/activate
 
-```bash
-pip install -r requirements.txt
-```
+# 3. Install dependencies:
+pip install .
 
-4. Configure your environment:
+# 4. Configure your environment:
+./scripts/env-generate.sh
 
-Copy `.env.template` to `.env` and fill in:
-
-```bash
-cp .env.template .env
-```
-
-Fill in the values (refer to `.env.template` to know how to fill them).
-
-## Usage
-
-Run the tool:
-
-```bash
-set +a
-source .env
-set -a
+# 5. Run the tool
 python gitlab-contribution-mapper.py
 bash scripts/monorepo-push.sh
 ```
+

@@ -2,6 +2,9 @@ import os
 import subprocess
 
 import git_filter_repo as fr
+from dotenv import load_dotenv
+
+load_dotenv(override=True)
 
 DUMMY_FILE_PATH = b"CHANGELOG.md"
 FMODE = b"100755"
@@ -10,6 +13,7 @@ EMAILS = os.environ.get("EMAILS", "").split(",")
 EMAILS = [email.strip().encode() for email in EMAILS if email.strip()]
 
 GITHUB_EMAIL = os.environ.get("GITHUB_EMAIL").encode()
+GITHUB_USER = os.environ.get("GITHUB_USER").encode()
 
 # Copy the dummy file within the repository
 os.system(f"cp ../../{DUMMY_FILE_PATH.decode()} ./")
@@ -32,6 +36,8 @@ def fixup_commits(commit: fr.Commit, _metadata):
         filter.insert(blob)
         commit.file_changes = [fr.FileChange(b"M", DUMMY_FILE_PATH, blob.id, FMODE)]
         commit.author_email = GITHUB_EMAIL
+        commit.author_name = GITHUB_USER
+
     else:
         # We do not want this commit
         commit.file_changes = []

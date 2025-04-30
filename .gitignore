@@ -1,2 +1,5 @@
 venv
+.venv
 .env
+uv.lock
+build/
