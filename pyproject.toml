@@ -1,5 +1,5 @@
 [project]
-name = "gitlab-contribution-mapper"
+name = "git-contribution-mapper"
 version = "0.1.0"
 authors = [
     { name = "7PH", email = "b.raymond@protonmail.com" }
